@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --exec babel-node src/server.js"
   },
-  "author": "Leonir",
+  "author": "Fabio",
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.15.0",
