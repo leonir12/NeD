@@ -1,6 +1,34 @@
 const express = require("express");
+import path from 'path';
 
 const app = express();
+const multer = require('multer');
+
+/**
+ * Cria uma instância do middleware configurada
+ * destination: lida com o destino
+ * filenane: permite definir o nome do arquivo gravado
+ */
+ const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        //Primeiro parâmetro = erro
+        cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+        //Primeiro parâmetro = erro
+        //Salvando com name do input e data atual
+        /* cb(null, file.fieldname + '-' + Date.now()) */
+
+        //Salvando com a mesma extensão do arquivo
+        /* cb(null,`${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`) */
+
+        //Salvando com o mesmo nome do arquivo
+        cb(null, file.originalname);
+    }
+});
+
+// utiliza a storage para configurar a instância do multer
+const upload = multer({ storage });
 
 /**
  * Configuração do parser para requisições post
@@ -25,14 +53,24 @@ const app = express();
  });
 
 /**
- * Arquivos estaticos
+ * caminhos estaticos
  */
 app.use('/publico', express.static(__dirname + '/publico'));
+app.use('/bscss', express.static('./node_modules/bootstrap/dist/css'));
+app.use('/bsjs', express.static('./node_modules/bootstrap/dist/js'));
+app.use('/popperjs', express.static('./node_modules/@popperjs/core/dist/umd'));
+app.use('/jquery', express.static('./node_modules/jquery/dist'));
+
+/**
+ * Requisição - Upload de arquivos
+ */
+app.post('/uploadFoto',upload.single('nomeFoto'),function(req, resp){
+    resp.end();
+});
 
 app.get('/album',function(req, resp){
     resp.sendFile(__dirname + '/views/form-album-digital.html');
 });
-
 
 app.post('/album-digital',function(req, resp){
     
@@ -59,6 +97,7 @@ app.post('/album-digital',function(req, resp){
                 [req.body.nome, req.body.cpf, req.body.telWhats, req.body.email, req.body.estado, req.body.cidade, req.body.dataNascimento, req.body.nomeResponsavel, req.body.cpfResponsavel, req.body.tituloFoto, req.body.nomeFotografa, req.body.nomeFoto])
         .then(res => console.log('ok'))
         .catch(err => console.log('erro: ' + err));
+        
 
     resp.sendFile(__dirname + '/views/form-album-digital.html');
 });
