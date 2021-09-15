@@ -120,6 +120,7 @@ function validarFormulario(){
 /**
  * Função assíncrona com AJAX para realizar upload do arquivo (foto)
  */
+//Função upload
 function uploadFile() {
   //let arquivo = $(nomeFoto).val().split(/(\\|\/)/g).pop();
   $('#nomeFoto').clone().appendTo("#fileForm");
