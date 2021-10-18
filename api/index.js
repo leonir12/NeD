@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express()
+import path from 'path'
 
 /**
  * Configuração do parser para requisições post
@@ -22,6 +23,12 @@ app.listen(PORTA, function () {
  */
  const routes = require('./routes');
  routes(app);
+
+ /**
+ * Configurações das páginas
+ */
+app.set('views',path.join(__dirname,'views'))
+app.set('view engine','pug')
 
 /* app.get('/teste', (req, res) => res
     .status(200)

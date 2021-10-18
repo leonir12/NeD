@@ -5,7 +5,8 @@ class AlbumController {
     static async pegaTodosOsCadastros(req,res) {
         try {
             const todosOsCadastros = await database.album_digital.findAll();
-            return res.status(200).json(todosOsCadastros);   
+            //return res.status(200).json(todosOsCadastros);
+            res.render('albumView',{ todosOsCadastros });   
         } catch (error) {
             return res.status(500).json(error.message);
         }
