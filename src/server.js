@@ -42,7 +42,7 @@ const upload = multer({ storage });
  * Conexão com banco de dados via pool de conexões
  * https://node-postgres.com/
  */
- const pool = require('./dao/conexao');
+// const pool = require('./dao/conexao');
 
 /**
  * Colocar servidor no ar
@@ -72,10 +72,10 @@ app.get('/album',function(req, resp){
     resp.sendFile(__dirname + '/views/form-album-digital.html');
 });
 
-app.post('/album-digital',function(req, resp){
+/*app.post('/album-digital',function(req, resp){
     
     //Conferir dados da requisição
-    /* console.log(`
+    console.log(`
     req.body.nome = ${req.body.nome}
     req.body.cpf = ${req.body.cpf}
     req.body.telWhats = ${req.body.telWhats}
@@ -88,7 +88,7 @@ app.post('/album-digital',function(req, resp){
     req.body.tituloFoto = ${req.body.tituloFoto}
     req.body.nomeFotografa = ${req.body.nomeFotografa}
     req.body.nomeFoto = ${req.body.nomeFoto}
-    `); */
+    `); 
 
     pool.query(`INSERT INTO album_digital 
                 (nome, cpf, tel_whats, email, estado, cidade, data_nascimento, nome_responsavel, cpf_responsavel, titulo_foto, nome_fotografa, nome_foto) 
@@ -100,4 +100,4 @@ app.post('/album-digital',function(req, resp){
         
 
     resp.sendFile(__dirname + '/views/form-album-digital.html');
-});
+}); */
